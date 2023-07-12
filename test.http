@@ -19,3 +19,9 @@ POST http://localhost:8080/validate-token
 
 ###
 GET http://localhost:8080/verify?email=test2@example.com&token=Zix-u1QIgovw5Cq4WYeC5Ys-z7o4shT3kBY74bpfrQs=
+
+
+###
+POST https://auth.mzhirnov.com/signup
+
+{"email":"test3@example.com","password":"password"}

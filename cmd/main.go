@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	mongoUri = ""
-	mongoDB  = "freddy"
+	mongoUri    = ""
+	mongoDBName = "freddy"
 )
 
 func init() {
@@ -31,12 +31,13 @@ func init() {
 
 func main() {
 	log.Println("Starting...")
-	repo := repository.NewUserRepository(mongoUri, mongoDB)
+	repo := repository.NewUserRepository(mongoUri, mongoDBName)
 	service := services.NewUserService(repo)
 	handler := handlers.NewUserHandler(service)
 
 	r := mux.NewRouter()
 
+	r.HandleFunc("/", handler.IndexHandler).Methods("GET")
 	r.HandleFunc("/signup", handler.SignUpHandler).Methods("POST")
 	r.HandleFunc("/signin", handler.SignInHandler).Methods("POST")
 	r.HandleFunc("/refresh", handler.RefreshTokenHandler).Methods("POST")

@@ -143,3 +143,12 @@ func (h *UserHandler) VerifyEmailHandler(w http.ResponseWriter, r *http.Request)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Email verification successful"))
 }
+
+func (h *UserHandler) IndexHandler(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(struct {
+		Message string `json:"message"`
+	}{
+		Message: "Hello World",
+	})
+	return
+}
