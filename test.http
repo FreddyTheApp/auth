@@ -1,0 +1,12 @@
+POST http://localhost:8080/signup
+
+{"email":"test4@example.com","password":"password"}
+
+###
+
+POST http://localhost:8080/signin
+
+{"email":"test4@example.com","password":"password"}
+
+### 
+POST http://localhost:8080/refresh?email=test4@example.com&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3Q0QGV4YW1wbGUuY29tIiwiZXhwIjoxNjg5NDE4ODQyfQ.zwcH_8apR0Zb3aREewa8vjKkuOCL0tZL5nsHqCHtXuw
