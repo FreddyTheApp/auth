@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -67,6 +68,19 @@ func (r *UserRepository) Save(ctx context.Context, u *user.User) error {
 	return err
 }
 
+func (r *UserRepository) Update(ctx context.Context, user *user.User) error {
+	filter := bson.M{"email": user.Email}
+	update := bson.M{
+		"$set": bson.M{
+			"isEmailVerified":        user.IsEmailVerified,
+			"emailVerificationToken": user.EmailVerificationToken,
+		},
+	}
+
+	_, err := r.collection.UpdateOne(ctx, filter, update)
+	return err
+}
+
 func (r *UserRepository) ensureIndexes(ctx context.Context) error {
 	mods := mongo.IndexModel{
 		Keys:    bson.M{"email": 1},              // index for `email` field
@@ -85,4 +99,19 @@ func (r *UserRepository) FindRefreshToken(ctx context.Context, email, token stri
 	var u user.User
 	err := r.collection.FindOne(ctx, bson.M{"email": email, "refreshToken": token}).Decode(&u)
 	return &u, err
+}
+
+func (r *UserRepository) FindByEmailAndToken(email, token string) (*user.User, error) {
+	var user user.User
+
+	filter := bson.M{"email": email, "emailVerificationToken": token}
+	err := r.collection.FindOne(context.TODO(), filter).Decode(&user)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, fmt.Errorf("no user found with this email and token")
+		}
+		return nil, err
+	}
+
+	return &user, nil
 }

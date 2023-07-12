@@ -1,12 +1,21 @@
 POST http://localhost:8080/signup
 
-{"email":"test4@example.com","password":"password"}
+{"email":"test2@example.com","password":"password"}
 
 ###
 
 POST http://localhost:8080/signin
 
-{"email":"test4@example.com","password":"password"}
+{"email":"test2@example.com","password":"password"}
 
 ### 
 POST http://localhost:8080/refresh?email=test4@example.com&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3Q0QGV4YW1wbGUuY29tIiwiZXhwIjoxNjg5NDE4ODQyfQ.zwcH_8apR0Zb3aREewa8vjKkuOCL0tZL5nsHqCHtXuw
+
+
+###
+POST http://localhost:8080/validate-token
+
+{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGV4YW1wbGUuY29tIiwiZXhwIjoxNjg5NDMzNzIxfQ.XIEYwc-0I2Alzq6VUe3bWbOr1_1Blm6oEZZW1v4aYeA"}
+
+###
+GET http://localhost:8080/verify?email=test2@example.com&token=Zix-u1QIgovw5Cq4WYeC5Ys-z7o4shT3kBY74bpfrQs=

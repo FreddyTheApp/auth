@@ -40,6 +40,8 @@ func main() {
 	r.HandleFunc("/signup", handler.SignUpHandler).Methods("POST")
 	r.HandleFunc("/signin", handler.SignInHandler).Methods("POST")
 	r.HandleFunc("/refresh", handler.RefreshTokenHandler).Methods("POST")
+	r.HandleFunc("/validate-token", handler.ValidateTokenHandler).Methods("POST")
+	r.HandleFunc("/verify", handler.VerifyEmailHandler).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
 }
